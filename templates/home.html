@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKILL_SYNC</title>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            background: linear-gradient(45deg, #1d3557, #457b9d, #a8dadc, #e63946);
+            background-size: 300% 300%;
+            animation: gradientCycle 12s infinite ease-in-out;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientCycle {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            text-align: center;
+            margin: 100px auto 30px auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .dynamic-button {
+            background: linear-gradient(45deg, #e63946, #f39c12);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dynamic-button:hover {
+            background: linear-gradient(45deg, #d62828, #f77f00);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <h1>SKILL-SYNC</h1>
+        <p>Select your Domain.</p>
+        <div class="button-container">
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=1&selected_domain=Aerospace'">Aerospace</button>
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=2&selected_domain=Artificial Intelligence'">Artificial Intelligence</button>
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=3&selected_domain=Biomedical'">Biomedical</button>
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=4&selected_domain=Chemical'">Chemical</button>
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=5&selected_domain=Civil'">Civil</button>
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=6&selected_domain=Mechanical'">Mechanical</button>
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=7&selected_domain=Electronics and Communication'">Electronics and Communication</button>
+            <button class="dynamic-button" onclick="window.location.href='/switch_dataset?dataset=8&selected_domain=Computer Science'">Computer Science</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
