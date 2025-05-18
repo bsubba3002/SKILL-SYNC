@@ -1,248 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>Job Recommendations</title>
-    <style>
-        /* General Reset */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Details</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: linear-gradient(120deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Kristen+ITC&display=swap');
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease-in-out;
+    }
 
-        /* Dynamic Background Styling */
-        body {
-            background: linear-gradient(120deg, #ff7e5f, #feb47b, #6a11cb, #2575fc);
-            background-size: 400% 400%;
-            animation: gradientMotion 15s ease infinite;
-        }
+    h1, h2 {
+      color: #ffeb3b;
+      font-weight: 600;
+    }
 
-        /* Animated Gradient Background */
-        @keyframes gradientMotion {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
 
-        /* Container Styling */
-        .container {
-            max-width: 800px; /* Set max width for better fit */
-            width: 100%;
-            margin: 50px auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
-            border-radius: 15px;
-            border: 5px solid transparent;
-            box-shadow: 0 4px 20px rgba(255, 255, 4, 0.2);
-            text-align: center;
-            animation: frameColorChange 6s infinite;
-        }
+    ul li {
+      background: rgba(255, 255, 255, 0.3);
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 10px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        @keyframes frameColorChange {
-            0% {
-                border-color: rgba(255, 126, 95, 0.7); /* Semi-transparent border */
-            }
-            25% {
-                border-color: rgba(254, 180, 123, 0.7);
-            }
-            50% {
-                border-color: rgba(106, 17, 203, 0.7);
-            }
-            75% {
-                border-color: rgba(37, 117, 252, 0.7);
-            }
-            100% {
-                border-color: rgba(255, 126, 95, 0.7);
-            }
-        }
+    .buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        h1 {
-            font-size: 2.8em;
-            color: #ff4c4c; /* Red Color */
-            margin-bottom: 20px;
-            font-family: 'Kristen ITC', sans-serif;
-            font-weight: 400;
-            font-style: italic;
-            text-decoration: underline;
-            text-decoration-thickness: 3px;
-            text-underline-offset: 10px;
-        }
+    .btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-        h1:hover {
-            transform: scale(1.05);
-            transition: all 0.3s ease-in-out;
-            color: #e74c3c; /* Darker Red on hover */
-        }
+    .btn-learn {
+      background: #ffeb3b;
+      color: #333;
+    }
 
-        h2 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #fff;
-            font-weight: bold;
-        }
+    .btn-learn:hover {
+      background: #ff9800;
+    }
 
-        /* List Styling */
-        ul {
-            list-style-type: none;
-            padding: 0;
-            text-align: center; /* Center the list items */
-        }
+    .input-box {
+      width: 50px;
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      border: none;
+      outline: none;
+    }
 
-        /* Job Title Button Styling */
-        .job-btn {
-            display: inline-block;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            margin: 10px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
+    .btn-generate {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ffeb3b;
+      color: #333;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s ease-in-out;
+    }
 
-        .job-btn:hover {
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
-            transform: scale(1.1);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
+    .btn-generate:hover {
+      background: #ff9800;
+    }
 
-        .job-btn:focus {
-            outline: none;
-        }
+    .roadmap-container {
+      margin-top: 30px;
+      display: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
 
-        li {
-            background: rgba(255, 255, 255, 0.9);
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-            text-align: center; /* Center the button within the list item */
-            opacity: 0;
-            transform: translateX(-50px);
-            animation: slideIn 0.6s forwards;
-        }
+    .roadmap-item {
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+      border: 2px solid rgba(255, 235, 59, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      animation: fadeInUp 0.6s forwards;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
 
-        li:hover {
-            transform: scale(1.03);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        }
+    .roadmap-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border-color: #ffeb3b;
+    }
 
-        li p {
-            margin: 10px 0;
-            font-size: 1em;
-        }
+    .roadmap-item::before {
+      content: "📘";
+      font-size: 1.5rem;
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      background: #ffeb3b;
+      color: #333;
+      padding: 5px 10px;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
 
-        li p strong {
-            color: #2c3e50;
-            font-size: 1.1em;
-        }
+    .roadmap-item strong {
+      font-size: 1.2em;
+      color: #ffeb3b;
+      display: block;
+      margin-bottom: 5px;
+    }
 
-        a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
+    .roadmap-item p {
+      margin: 4px 0;
+      font-size: 0.95em;
+      color: #eee;
+    }
 
-        a:hover {
-            color: #6a11cb;
-        }
+    .btn-complete {
+      background: #00e676;
+      color: #000;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      transition: all 0.3s ease;
+    }
 
-        /* Slide-in Animation */
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+    .btn-complete:hover {
+      background: #00c853;
+      color: #fff;
+    }
 
-        /* Button Styling */
-        button {
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-        }
+    .btn-complete.completed {
+      background: #9e9e9e;
+      color: white;
+      cursor: not-allowed;
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
 
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
+    .hidden {
+      display: none;
+    }
 
-        /* Navigation Link */
-        .nav-link {
-            text-decoration: none;
-            color: #ffffff;
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
+    .eligibility-message {
+      display: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 30px;
+    }
 
-        .nav-link:hover {
-            transform: scale(1.1);
-            background-color: #34495e;
-        }
-
-        /* Footer Styling */
-        footer {
-            margin-top: 50px;
-            text-align: center;
-            color: #aaa;
-            font-size: 0.9em;
-        }
-    </style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Top 3 Job-Title Recommendations</h1>
-        {% if recommendations %}
-            <ul>
-                {% for job in recommendations %}
-                    <li>
-                        <button class="job-btn" onclick="window.location.href='{{ url_for('details', job_title=job['JobTitle']) }}'">{{ job['JobTitle'] }}</button>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No recommendations found. Please try again.</p>
-        {% endif %}
-        <a href="/" class="nav-link">Go Back</a>
+  <div class="container">
+    <h1>{{ job_title }}</h1>
+    <h2>Missing Skills</h2>
+    <ul id="skills-list">
+      {% for skill in missing_skills.split(', ') %}
+        <li><span>{{ skill }}</span></li>
+      {% endfor %}
+    </ul>
+
+    <button class="btn-generate" onclick="showCustomization()">Customize</button>
+
+    <div id="customize-section" class="hidden">
+      <h2>Customize Learning Plan</h2>
+      <ul id="customize-skills-list">
+        {% for skill in missing_skills.split(', ') %}
+          <li>
+            <span>{{ skill }}</span>
+            <div class="buttons-container">
+              <a class="btn btn-learn" target="_blank" href="https://www.udemy.com/courses/search/?q={{ skill }}">Learn</a>
+              <input type="number" placeholder="Hours" class="input-box hours-input" data-skill="{{ skill }}">
+              <input type="number" placeholder="Days" class="input-box days-input" data-skill="{{ skill }}">
+              <input type="time" class="input-box alarm-input" data-skill="{{ skill }}">
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <button class="btn-generate" onclick="generateRoadmap()">Generate Roadmap</button>
+
+      <h2>Learning Roadmap</h2>
+      <div id="roadmap-container" class="roadmap-container"></div>
+
+      <p id="eligibility-message" class="eligibility-message">
+        <div style="display: flex; justify-content: center; gap: 10px;">
+          <button class="btn-generate" onclick="openJobSearch()">🎉 You're now eligible for {{ job_title }}! 🎉</button>
+          <button class="btn-generate" onclick="startMockInterview()">🧠 Try AI Mock Interview</button>
+        </div>
+      </p>
     </div>
-    <footer>
-        &copy; 2024 Career-Compass
-    </footer>
+  </div>
+
+  <script>
+    function showCustomization() {
+      document.getElementById("customize-section").classList.toggle("hidden");
+    }
+
+    function generateRoadmap() {
+      const roadmapContainer = document.getElementById("roadmap-container");
+      roadmapContainer.innerHTML = "";
+      roadmapContainer.style.display = "flex";
+
+      let startDate = new Date();
+      document.querySelectorAll(".hours-input").forEach((input) => {
+        const skill = input.dataset.skill;
+        const hours = input.value;
+        const days = document.querySelector(`.days-input[data-skill="${skill}"]`).value;
+        const alarmTime = document.querySelector(`.alarm-input[data-skill="${skill}"]`).value;
+
+        if (hours && days && days > 0) {
+          let endDate = new Date(startDate);
+          endDate.setDate(startDate.getDate() + parseInt(days));
+
+          let roadmapItem = document.createElement("div");
+          roadmapItem.classList.add("roadmap-item");
+
+          roadmapItem.innerHTML = `
+            <div>
+              <strong>${skill}</strong>
+              <p>📅 ${startDate.toDateString()} - ${endDate.toDateString()}</p>
+              <p>⏳ ${(hours / days).toFixed(2)} hrs/day</p>
+            </div>
+          `;
+
+          let completeButton = document.createElement("button");
+          completeButton.classList.add("btn-complete");
+          completeButton.innerText = "✔ Complete";
+          completeButton.onclick = function() { markComplete(completeButton) };
+          roadmapItem.appendChild(completeButton);
+
+          // Set the alarm sound trigger
+          if (alarmTime) {
+            setAlarm(alarmTime);
+          }
+
+          roadmapContainer.appendChild(roadmapItem);
+          startDate = endDate;
+        }
+      });
+    }
+
+    function setAlarm(alarmTime) {
+      let alarmDate = new Date();
+      let [hours, minutes] = alarmTime.split(":");
+      alarmDate.setHours(hours);
+      alarmDate.setMinutes(minutes);
+      alarmDate.setSeconds(0);
+
+      let currentTime = new Date();
+      let timeToWait = alarmDate.getTime() - currentTime.getTime();
+
+      if (timeToWait > 0) {
+        setTimeout(() => {
+          alert("Time's up! 🚨");
+          playSound();
+        }, timeToWait);
+      } else {
+        alert("The alarm time has already passed.");
+      }
+    }
+
+    function playSound() {
+      const audio = new Audio("https://www.soundjay.com/button/beep-07.wav");
+      audio.play();
+    }
+
+    function markComplete(button) {
+      button.classList.add("completed");
+      button.innerText = "✔ Completed";
+      if (document.querySelectorAll(".btn-complete:not(.completed)").length === 0) {
+        document.getElementById("eligibility-message").style.display = "block";
+      }
+    }
+
+    function openJobSearch() {
+      const jobTitle = "{{ job_title }}";
+      const naukriUrl = `https://www.naukri.com/${encodeURIComponent(jobTitle)}`;
+      window.open(naukriUrl, "_blank");
+    }
+
+    function startMockInterview() {
+      const jobTitle = "{{ job_title }}";
+      window.location.href = `/ai-mock-interview/${encodeURIComponent(jobTitle)}`;
+    }
+  </script>
 </body>
 </html>
